@@ -1,0 +1,20 @@
+[
+    {
+        "error": "unknown",
+        "filename": "coffee.jpg"
+    },
+    {
+        "name": "Cyber Towers",
+        "lat": 17.4475,
+        "lng": 78.3758,
+        "desc": "Cyber Towers is one of the earliest and most iconic IT hubs in Hitech City, Hyderabad, symbolizing the city's rise as a global technology center.",
+        "filename": "cyber-tower.jpg"
+    },
+    {
+        "name": "Tokyo Tower",
+        "lat": 35.6586,
+        "lng": 139.7455,
+        "desc": "Tokyo Tower is a communications and observation tower located in the Shiba-koen district of Minato, Tokyo, Japan, inspired by the Eiffel Tower.",
+        "filename": "tokyotower.jpg"
+    }
+]

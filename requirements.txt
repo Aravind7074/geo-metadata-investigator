@@ -1,0 +1,7 @@
+streamlit
+pandas
+exifread
+google-cloud-vision
+folium
+streamlit-folium
+Pillow

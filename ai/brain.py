@@ -5,7 +5,7 @@ from PIL import Image
 
 # 1. Configuration
 # Initialize the new modern client
-client = genai.Client(api_key="apikey") 
+client = genai.Client(api_key="AIzaSyC4fPXteMCqKJV6R0nkb5EpHSgXqxg-z5k") 
 
 IMAGE_FOLDER = "./evidence_images"  
 OUTPUT_FILE = "movement_data.json"

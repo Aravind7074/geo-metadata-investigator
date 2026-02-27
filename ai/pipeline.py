@@ -5,7 +5,53 @@ import folium
 from google import genai
 from PIL import Image
 from dotenv import load_dotenv
+import pandas as pd # <-- M3's UI expects a Pandas DataFrame
 
+# --- ADD THIS ADAPTER FUNCTION ---
+def process_uploaded_files(uploaded_files):
+    """
+    Adapter function for Streamlit: Takes memory files, saves them, 
+    runs the AI pipeline, and returns the formatted map and dataframe.
+    """
+    TEMP_FOLDER = "streamlit_temp_evidence"
+    
+    # 1. Create a fresh temp folder
+    if not os.path.exists(TEMP_FOLDER):
+        os.makedirs(TEMP_FOLDER)
+    else:
+        # Clear out old evidence
+        for f in os.listdir(TEMP_FOLDER):
+            os.remove(os.path.join(TEMP_FOLDER, f))
+
+    # 2. Save M3's memory files to the hard drive
+    for file in uploaded_files:
+        with open(os.path.join(TEMP_FOLDER, file.name), "wb") as f:
+            f.write(file.getbuffer())
+
+    # 3. Run YOUR existing pipeline on the new folder
+    investigation_map, raw_data = process_images(TEMP_FOLDER)
+
+    # 4. Format the data to match M3's PDF generator expectations
+    if raw_data:
+        # M3's UI expects keys like 'File', 'Lat', 'Lon', 'Source'
+        formatted_data = []
+        for item in raw_data:
+            formatted_data.append({
+                "File": item.get("filename", "Unknown"),
+                "Lat": item.get("lat", 0.0),
+                "Lon": item.get("lng", 0.0),
+                "Source": item.get("source", "AI Detected")
+            })
+        df = pd.DataFrame(formatted_data)
+    else:
+        df = pd.DataFrame()
+
+    return investigation_map, df
+# ---------------------------------
+
+# (Your original process_images function starts here)
+def process_images(folder):
+# ... rest of your code ...
 # 1. Actually run the function to load the hidden file
 load_dotenv()
 
